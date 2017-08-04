@@ -1,9 +1,6 @@
 from simple import MQTTClient
 from machine import Pin, Timer
-#import machine
 import time
-#import micropython
-#import esp
 import dht
 import ujson as json
 import urequests as requests
