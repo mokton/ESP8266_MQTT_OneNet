@@ -1,5 +1,3 @@
-#import usocket as socket
-#import ustruct as struct
 import urequests as requests
 import ujson as json
 
