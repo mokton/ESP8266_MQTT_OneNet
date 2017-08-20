@@ -1,4 +1,4 @@
-def do_connect():
+def do_connect(forCheck=True):
     import network
     sta_if = network.WLAN(network.STA_IF)
     ap_if = network.WLAN(network.AP_IF)
@@ -12,7 +12,8 @@ def do_connect():
         while not sta_if.isconnected():
             time.sleep(1)
             print('.',)
-    print('')
-    print('network config:', sta_if.ifconfig())
+    if forCheck:
+        print('')
+        print('network config:', sta_if.ifconfig())
 
 #do_connect()
