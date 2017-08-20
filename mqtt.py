@@ -7,6 +7,9 @@ import urequests as requests
 from chipid import chipid
 
 class mqtt:
+    
+    failed_count = 0
+    
     def __init__(self, client_id='', username='', password=''):
         self.server = "183.230.40.39"
         self.client_id = client_id
@@ -35,8 +38,16 @@ class mqtt:
         bdata[3:jlen+4] = jdata.encode('ascii') # json data
         #print(bdata)
         print('publish data', str(self.pid + 1))
-        self.mqttClient.publish('$dp', bdata)
-        self.pid += 1
+        try:
+            self.mqttClient.publish('$dp', bdata)
+            self.pid += 1
+            self.failed_count = 0
+        except Exception as ex:
+            self.failed_count += 1
+            print('publish failed:', ex.message())
+            if self.failed_count >= 3:
+                print('publish failed three times, esp resetting...')
+                reset()
 
     def sub_callback(self, topic, msg):
         print((topic,msg))
